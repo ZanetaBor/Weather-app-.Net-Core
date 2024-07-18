@@ -1,0 +1,51 @@
+﻿@model List<Weather.Models.WeatherData>
+
+@{
+	ViewData["Title"] = "Weather Apps";
+}
+
+
+
+<h1>Weather Apps</h1>
+
+<form method="get" asp-action="Index" class=" w-50 p-3">
+	<div class="form-group">
+		<label for="minTemperature" class="text-center m-2 p-2">Where to holiday? Choose minimum temperature.</label>
+		<input type="number" step="0.1" class="form-control m-2 p-2" id="minTemperature" name="minTemperature" value="@ViewData["MinTemperature"]" />
+	</div>
+	<button type="submit" class="btn btn-primary text-center m-2">Show temperature</button>
+</form>
+
+
+<div class="card bg-primary-subtle">
+	<table class="table table-bordered-light border-light bg-primary bg-opacity-75 text-light">
+		<thead>
+			<tr>
+				<th>
+					<a asp-action="Index" class="link-light" asp-route-sortOrder="@ViewBag.CitySortParm">City - sort</a>
+				</th>
+				<th>Description</th>
+				<th>
+					<a asp-action="Index" class="link-light" asp-route-sortOrder="@ViewBag.TemperatureSortParm">Temperature  - sort</a>
+				</th>
+				<th>Humidity</th>
+				<th>
+					<a asp-action="Index" class="link-light" asp-route-sortOrder="@ViewBag.WindSpeedSortParm">Wind Speed  - sort</a>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var data in Model)
+			{
+				<tr>
+					<td>@data.City</td>
+					<td>@data.Description</td>
+					<td>@Math.Round(data.Temperature)</td>
+					<td>@Math.Round(data.Humidity)</td>
+					<td>@data.WindSpeed</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
